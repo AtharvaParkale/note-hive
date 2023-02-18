@@ -13,12 +13,7 @@ export const getNote = async (req, res) => {
 export const getAllNotes = async (req, res) => {
   try {
     const notes = await Note.find();
-    res.status(200).json({
-      message: "All notes fetched successfully !",
-      data: {
-        notes: notes,
-      },
-    });
+    res.status(200).json(notes);
   } catch (err) {
     res.status(404).json({ message: err.message });
   }

@@ -1,0 +1,48 @@
+.input-inner-container{
+    border: 2px solid black;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    width: 60%;
+    min-height: 20vh;
+    flex-direction: column;
+
+}
+.take-note-container{
+    display: flex;
+    align-items: center;
+    border: 2px solid black;
+    width: 93%;
+    height: 6vh;
+    cursor: pointer;
+}
+.take-note-container p{
+    font-size: 1.04em;
+    font-weight: 500;
+    color: #202124cf;
+}
+
+.title-container{
+    border: 2px solid black;
+    width: 93%;
+    height: 5vh;
+}
+.description-container{
+    border: 2px solid black;
+    width: 93%;
+    height: 6vh;
+}
+.features-container{
+    border: 2px solid black;
+    height: 6vh;
+    width: 93%;
+}
+.card-container {
+  width: 15vw;
+  height: 18vh;
+  border: 2px solid black;
+  margin-right: 2vw;
+  margin-bottom: 3.7vh;
+}
+
