@@ -1,22 +1,38 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-// import axios from "axios";
+import axios from "axios";
 import Notes from "./components/Notes/Notes";
+import { useDispatch, useSelector } from "react-redux";
+import { noteActions } from "./store/note-slice";
 
 function App() {
-  //  const [notes, setNotes] = useState([]);
+  const dispatch = useDispatch();
+  const open = useSelector((state) => state.toggle.isOpen);
+  console.log(open);
 
-  // const fetchNotes = async () => {
-  //   const {data} = await axios.get("http://localhost:3001/notes/");
-  //   setNotes(data)
-  //   // console.log(data);
-  // };
+  // const [notes, setNotes] = useState([]);
 
-  // useEffect(() => {
-  //   fetchNotes();
-  // }, []);
+  const fetchNotes = async () => {
+    try {
+      const { data } = await axios.get("http://localhost:3001/notes/");
 
-  // console.log(notes)
+      // setNotes(data);
+
+      dispatch(
+        noteActions.replaceData({
+          notesList: data,
+        })
+      );
+    } catch (err) {
+      console.log("Error while fetching the data");
+    }
+  };
+
+  useEffect(() => {
+    fetchNotes();
+  }, []);
+
+  // console.log(notes);
 
   return (
     <div className="App">

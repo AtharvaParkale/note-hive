@@ -1,48 +1,138 @@
+
 .input-inner-container{
-    border: 2px solid black;
+    /* border: 2px solid black; */
     align-items: center;
     justify-content: center;
     display: flex;
     align-items: center;
     width: 60%;
-    min-height: 20vh;
+    /* min-height: 20vh; */
     flex-direction: column;
+    box-shadow: 2px 2px 5px 2px rgb(0 0 0 / 20%);
+    border-radius: 15px;
+    margin-bottom: 3vh;
 
 }
 .take-note-container{
     display: flex;
     align-items: center;
-    border: 2px solid black;
+    /* border: 2px solid black; */
     width: 93%;
     height: 6vh;
     cursor: pointer;
 }
 .take-note-container p{
-    font-size: 1.04em;
-    font-weight: 500;
-    color: #202124cf;
+    font-size: 0.97em;
+    font-weight: 600;
+    color: rgba(0,0,0,0.702);
 }
 
 .title-container{
-    border: 2px solid black;
+    /* border: 2px solid black; */
     width: 93%;
     height: 5vh;
+    display: flex;
+    align-items: center;
+    color: rgb(0 0 0 / 60%);
+    font-weight: 600;
+    margin-top: 1vh;
 }
 .description-container{
-    border: 2px solid black;
-    width: 93%;
-    height: 6vh;
+    /* border: 2px solid black; */
+    width: 93%!important;
+    min-height: 6vh;
+    display: flex;
+    align-items: center;
 }
 .features-container{
-    border: 2px solid black;
+    /* border: 2px solid black; */
     height: 6vh;
     width: 93%;
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    margin-bottom: 1vh;
 }
-.card-container {
-  width: 15vw;
-  height: 18vh;
-  border: 2px solid black;
-  margin-right: 2vw;
-  margin-bottom: 3.7vh;
+.delete-card-container svg{
+    margin: 0 !important;
+}
+.css-78trlr-MuiButtonBase-root-MuiIconButton-root {
+    padding: 0 !important;
 }
 
+
+.note-btn{
+    font-family: "Montserrat", sans-serif !important;
+}
+.card-container {
+  width: 13vw;
+  min-height: 15vh;
+  border: 1px solid #b9b9b9;
+  border-radius: 8px;
+  margin-right: 2vw;
+  margin-bottom: 3.7vh;
+  cursor: pointer;
+  color: #202124;
+  padding: 12px;
+  font-size: 0.93em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+}
+.card-container span{
+    font-weight: 500;
+    font-size: 1em;
+}
+.card-container p {
+    font-size: 0.9em;
+    line-height: 1.4;
+    width: 100%;
+    /* border: 2px solid black; */
+    word-wrap:break-word
+}
+.description-container{
+    width: 100%;
+}
+.card-container:hover{
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.395);
+}
+
+.desc-textarea{
+    width: 100%;
+    height: 100% ;
+    border: none !important;
+    
+}
+.title-input{
+    width: 100%;
+    height: 100% ;
+    border: none !important;
+}
+/* this is for title input */
+.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input{
+    padding: 0 !important;
+    
+    
+}
+.css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root{
+    height: 100% !important;
+    font-size: 1em !important;
+    font-weight: 600 !important;
+    border-radius:0 !important;
+    border: none !important;
+    font-family: "Montserrat", sans-serif !important;
+    font-size: 0.95em !important;
+    color: rgba(0,0,0,0.702) !important;
+}
+/* This  is for textarea */
+.css-dpjnhs-MuiInputBase-root-MuiOutlinedInput-root{
+    padding: 0 !important;
+    border-radius:0 !important;
+    border: none !important;
+    font-family: "Montserrat", sans-serif !important;
+    font-size: 0.9em !important;
+    font-weight: 600 !important;
+    color: rgba(0,0,0,0.702) !important;
+}
