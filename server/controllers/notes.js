@@ -28,10 +28,13 @@ export const addNote = async (req, res) => {
       backGround,
     });
     const savedNote = await newNote.save();
-    res.status(201).json({
-      message: "Note saved successfully !",
-      data: { savedNote },
-    });
+    // res.status(201).json({
+    //   message: "Note saved successfully !",
+    //   data: { savedNote },
+    // });
+
+    const notes = await Note.find();
+    res.status(200).json(notes);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -45,19 +48,14 @@ export const deleteNote = async (req, res) => {
     if (note) {
       await Note.remove({ _id: id });
       const notes = await Note.find();
-      res.status(200).json({
-        message: "Note deleted successfully !",
-        data: { notes },
-      });
+      res.status(200).json(notes);
     } else {
       res.status(201).json({ message: "Note not found to delete !" });
     }
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-
 };
-
 
 export const updateNote = async (req, res) => {
   try {
@@ -77,17 +75,12 @@ export const updateNote = async (req, res) => {
         }
       );
 
-      const updatedNote = await Note.findById(id);
-
-      res.status(200).json({
-        message: "Note updated successfully !",
-        data: { updatedNote },
-      });
+      const notes = await Note.find();
+      res.status(200).json(notes);
     } else {
       res.status(201).json({ message: "No note found !" });
     }
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-  
 };

@@ -1,16 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Button, IconButton, Stack, TextField } from "@mui/material";
 import ColorLensIcon from "@mui/icons-material/ColorLens";
-import DeleteIcon from '@mui/icons-material/Delete';
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import "./Notes.css";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleActions } from "../../store/toggle-slice";
+import axios from "axios";
+import { noteActions } from "../../store/note-slice";
+import Popup from "./notePopup";
 
 function Notes() {
   const dispatch = useDispatch();
   const open = useSelector((state) => state.toggle.isOpen);
+  const popUp = useSelector((state) => state.toggle.isPopUp);
+
+  // console.log(popUp);
+
+  const nTitle = useSelector((state) => state.note.noteTitle);
+  const nDesc = useSelector((state) => state.note.noteDescription);
+  const nBack = useSelector((state) => state.note.noteBackground);
+  const nId = useSelector((state) => state.note.noteId);
+
+  // console.log(nId);
+
+  // console.log(nTitle);
+  // console.log(nDesc);
+  // console.log(nBack);
+
   const data = useSelector((state) => state.note.notesList);
-  console.log(data);
+
+  // console.log(data);
 
   const setToggle = () => {
     dispatch(
@@ -18,6 +37,136 @@ function Notes() {
         isOpen: !open,
       })
     );
+  };
+
+  const setPopUp = () => {
+    dispatch(
+      toggleActions.isPopUp({
+        isPopUp: !popUp,
+      })
+    );
+  };
+
+  const handleClosePopUp = () => {
+    dispatch(
+      noteActions.addNote({
+        noteTitle: "",
+        noteDescription: "",
+        noteBackground: "white",
+      })
+    );
+    dispatch(
+      toggleActions.isPopUp({
+        isPopUp: !popUp,
+      })
+    );
+  };
+
+  const handleDeleteNote = async (id) => {
+    try {
+      const { data } = await axios.delete(`http://localhost:3001/notes/${id}`);
+      dispatch(
+        noteActions.replaceData({
+          notesList: data,
+        })
+      );
+      console.log("Note deleted successfully !");
+    } catch (err) {
+      console.log("Error in deleting the note!");
+    }
+  };
+
+  const setNoteData = async (title, description, background) => {
+    dispatch(
+      noteActions.addNote({
+        noteTitle: title,
+        noteDescription: description,
+        noteBackground: background,
+      })
+    );
+  };
+
+  const handleAddNote = async () => {
+    console.log(nTitle);
+    console.log(nDesc);
+    console.log(nBack);
+    try {
+      const note = {
+        title: nTitle,
+        description: nDesc,
+        backGround: nBack,
+      };
+
+      const { data } = await axios.put("http://localhost:3001/notes/", note);
+
+      dispatch(
+        noteActions.addNote({
+          noteTitle: "",
+          noteDescription: "",
+          noteBackground: "white",
+        })
+      );
+
+      dispatch(
+        noteActions.replaceData({
+          notesList: data,
+        })
+      );
+    } catch (err) {
+      console.log(err.response.data);
+    }
+  };
+
+  const handleGetSingleNote = async (id) => {
+    try {
+      const { data } = await axios.get(`http://localhost:3001/notes/${id}`);
+      // console.log(data);
+      // setNotes(data);
+
+      dispatch(
+        noteActions.addNote({
+          noteTitle: data.title,
+          noteDescription: data.description,
+          noteBackground: data.backGround,
+        })
+      );
+
+      dispatch(
+        noteActions.addId({
+          noteId: id,
+        })
+      );
+    } catch (err) {
+      console.log(err.response.data);
+    }
+  };
+
+  const handleUpdateNote = async (id) => {
+    try {
+      console.log(id);
+      const { data } = await axios.patch(`http://localhost:3001/notes/${id}`, {
+        title: nTitle,
+        description: nDesc,
+        backGround: nBack,
+      });
+      console.log(data);
+
+      dispatch(
+        noteActions.replaceData({
+          notesList: data,
+        })
+      );
+
+      dispatch(
+        noteActions.addNote({
+          noteTitle: "",
+          noteDescription: "",
+          noteBackground: "white",
+        })
+      );
+    } catch (err) {
+      console.log(err.response.data);
+    }
   };
 
   return (
@@ -62,6 +211,9 @@ function Notes() {
                     sx={{
                       "& fieldset": { border: "none" },
                     }}
+                    onChange={(e) => {
+                      setNoteData(e.target.value, nDesc, nBack);
+                    }}
                   />
                 </Box>
                 <Box className="description-container">
@@ -71,6 +223,9 @@ function Notes() {
                     placeholder="Take a note..."
                     sx={{
                       "& fieldset": { border: "none" },
+                    }}
+                    onChange={(e) => {
+                      setNoteData(nTitle, e.target.value, nBack);
                     }}
                   />
                 </Box>
@@ -83,7 +238,10 @@ function Notes() {
                     variant="contained"
                     size="small"
                     className="note-btn"
-                    onClick={setToggle}
+                    onClick={() => {
+                      handleAddNote();
+                      setToggle();
+                    }}
                   >
                     Save
                   </Button>
@@ -104,12 +262,19 @@ function Notes() {
         >
           {data.map((note) => (
             // <div key={note._id}>{note.description}</div>
-            <Box key={note._id} className="card-container">
+            <Box
+              key={note._id}
+              className="card-container"
+              onClick={() => {
+                handleGetSingleNote(note._id);
+                setPopUp();
+              }}
+            >
               <Box
                 className="text-holder"
                 sx={{
-                  border: "2px solid black",
-                  width:'100%'
+                  // border: "2px solid black",
+                  width: "100%",
                 }}
               >
                 <span>{note.title}</span>
@@ -122,29 +287,58 @@ function Notes() {
               <Box
                 className="delete-card-container"
                 sx={{
-                  border: "2px solid black",
-                  width:'100%',
-                  display:'flex',
-                  alignItems:'center',
-                  justifyContent:'flex-end'
+                  // border: "2px solid black",
+                  width: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "flex-end",
                 }}
               >
-                <IconButton>
-                  <DeleteIcon fontSize="small"/>
+                <IconButton
+                  onClick={() => {
+                    handleDeleteNote(note._id);
+                  }}
+                >
+                  <MoreVertIcon fontSize="small" />
                 </IconButton>
               </Box>
             </Box>
           ))}
-          {/* <Box className="card-container">Hi</Box>
-
-          <Box className="card-container">Hi</Box>
-
-          <Box className="card-container">Hi</Box>
-
-          <Box className="card-container">Hi</Box>
-          <Box className="card-container">Hi</Box> */}
         </Box>
       </Stack>
+      <Popup trigger={popUp}>
+        <Box className="popup-title-container">
+          <input
+            type="text"
+            value={nTitle}
+            onChange={(e) => {
+              setNoteData(e.target.value, nDesc, nBack);
+            }}
+          />
+        </Box>
+        <Box className="popup-desc-container">
+          <input
+            type="text"
+            value={nDesc}
+            onChange={(e) => {
+              setNoteData(nTitle, e.target.value, nBack);
+            }}
+          />
+        </Box>
+        <Box className="close-button-container">
+          <Button
+            variant="contained"
+            size="small"
+            className="note-btn"
+            onClick={() => {
+              handleUpdateNote(nId);
+              handleClosePopUp();
+            }}
+          >
+            CLOSE
+          </Button>
+        </Box>
+      </Popup>
     </Stack>
   );
 }

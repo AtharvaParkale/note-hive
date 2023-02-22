@@ -4,6 +4,10 @@ const noteSlice = createSlice({
   name: "note",
   initialState: {
     notesList: [],
+    noteTitle: "",
+    noteDescription: "",
+    noteBackground: "white",
+    noteId:""
   },
   reducers: {
     replaceData(state, action) {
@@ -12,7 +16,15 @@ const noteSlice = createSlice({
 
     updateNote(state, action) {},
 
-    addNote(state, action) {},
+    addNote(state, action) {
+      state.noteTitle = action.payload.noteTitle;
+      state.noteDescription = action.payload.noteDescription;
+      state.noteBackground = action.payload.noteBackground;
+      // state.noteBackground = action.payload.noteBackground;
+    },
+    addId(state,action){
+      state.noteId = action.payload.noteId;
+    },
 
     deleteNote(state, action) {},
   },
