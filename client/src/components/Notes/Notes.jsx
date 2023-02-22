@@ -8,6 +8,7 @@ import { toggleActions } from "../../store/toggle-slice";
 import axios from "axios";
 import { noteActions } from "../../store/note-slice";
 import Popup from "./notePopup";
+import DeletePopUp from "./DeletePopUp/DeletePopUp";
 
 function Notes() {
   const dispatch = useDispatch();
@@ -62,19 +63,7 @@ function Notes() {
     );
   };
 
-  const handleDeleteNote = async (id) => {
-    try {
-      const { data } = await axios.delete(`http://localhost:3001/notes/${id}`);
-      dispatch(
-        noteActions.replaceData({
-          notesList: data,
-        })
-      );
-      console.log("Note deleted successfully !");
-    } catch (err) {
-      console.log("Error in deleting the note!");
-    }
-  };
+ 
 
   const setNoteData = async (title, description, background) => {
     dispatch(
@@ -267,7 +256,7 @@ function Notes() {
               className="card-container"
               onClick={() => {
                 handleGetSingleNote(note._id);
-                setPopUp();
+                
               }}
             >
               <Box
@@ -275,6 +264,9 @@ function Notes() {
                 sx={{
                   // border: "2px solid black",
                   width: "100%",
+                }}
+                onClick={()=>{
+                  setPopUp();
                 }}
               >
                 <span>{note.title}</span>
@@ -294,13 +286,14 @@ function Notes() {
                   justifyContent: "flex-end",
                 }}
               >
-                <IconButton
-                  onClick={() => {
-                    handleDeleteNote(note._id);
-                  }}
+                {/* <IconButton
+                  // onClick={() => {
+                  //   handleDeleteNote(note._id);
+                  // }}
                 >
                   <MoreVertIcon fontSize="small" />
-                </IconButton>
+                </IconButton> */}
+                <DeletePopUp noteId={note._id}/>
               </Box>
             </Box>
           ))}
