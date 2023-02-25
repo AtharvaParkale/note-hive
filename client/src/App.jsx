@@ -8,7 +8,7 @@ import { noteActions } from "./store/note-slice";
 function App() {
   const dispatch = useDispatch();
   const open = useSelector((state) => state.toggle.isOpen);
-  console.log(open);
+  // console.log(open);
 
   // const [notes, setNotes] = useState([]);
 

@@ -1,0 +1,19 @@
+.bgcolor-container{
+    display: flex;
+    align-items: center;
+    /* justify-content: space-evenly; */
+    /* border: 2px solid black; */
+    padding: 1.5vh;
+    width: fit-content;
+    border-radius: 10px;
+}
+.bgcolor-circle{
+    /* border: 2px solid black; */
+    margin-right: 0.8vw;
+    width: 27px;
+    height: 27px;
+    border-radius: 50px;
+}
+.bgcolor-circle:hover{
+    border: 1px solid black;
+}

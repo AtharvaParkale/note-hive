@@ -25,8 +25,9 @@ const noteSlice = createSlice({
     addId(state,action){
       state.noteId = action.payload.noteId;
     },
-
-    deleteNote(state, action) {},
+    setBackgroundColor(state,action){
+      state.noteBackground = action.payload.noteBackground;
+    },
   },
 });
 

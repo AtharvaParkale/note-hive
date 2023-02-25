@@ -9,6 +9,7 @@ import axios from "axios";
 import { noteActions } from "../../store/note-slice";
 import Popup from "./notePopup";
 import DeletePopUp from "./DeletePopUp/DeletePopUp";
+import BackgroundPopUp from "./BackgroundPopUp/BackgroundPopUp";
 
 function Notes() {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ function Notes() {
   const nDesc = useSelector((state) => state.note.noteDescription);
   const nBack = useSelector((state) => state.note.noteBackground);
   const nId = useSelector((state) => state.note.noteId);
+  const nWhite="white"
 
   // console.log(nId);
 
@@ -76,9 +78,9 @@ function Notes() {
   };
 
   const handleAddNote = async () => {
-    console.log(nTitle);
-    console.log(nDesc);
-    console.log(nBack);
+    // console.log(nTitle);
+    // console.log(nDesc);
+    // console.log(nBack);
     try {
       const note = {
         title: nTitle,
@@ -132,13 +134,13 @@ function Notes() {
 
   const handleUpdateNote = async (id) => {
     try {
-      console.log(id);
+      // console.log(id);
       const { data } = await axios.patch(`http://localhost:3001/notes/${id}`, {
         title: nTitle,
         description: nDesc,
         backGround: nBack,
       });
-      console.log(data);
+      // console.log(data);
 
       dispatch(
         noteActions.replaceData({
@@ -186,7 +188,10 @@ function Notes() {
             justifyContent: "center",
           }}
         >
-          <Box className="input-inner-container">
+          <Box className="input-inner-container" sx={{
+            backgroundColor:`${!open?nBack:nWhite}`
+            // border:`${nBack}`
+          }}>
             {open ? (
               <Box className="take-note-container" onClick={setToggle}>
                 <p>Take a note...</p>
@@ -219,9 +224,8 @@ function Notes() {
                   />
                 </Box>
                 <Box className="features-container">
-                  <IconButton aria-label="Example">
-                    <ColorLensIcon />
-                  </IconButton>
+
+                  <BackgroundPopUp/>
 
                   <Button
                     variant="contained"
@@ -258,6 +262,9 @@ function Notes() {
                 handleGetSingleNote(note._id);
                 
               }}
+              sx={{
+                backgroundColor:`${note.backGround}`
+              }}
             >
               <Box
                 className="text-holder"
@@ -286,13 +293,6 @@ function Notes() {
                   justifyContent: "flex-end",
                 }}
               >
-                {/* <IconButton
-                  // onClick={() => {
-                  //   handleDeleteNote(note._id);
-                  // }}
-                >
-                  <MoreVertIcon fontSize="small" />
-                </IconButton> */}
                 <DeletePopUp noteId={note._id}/>
               </Box>
             </Box>

@@ -5,9 +5,9 @@ import Button from "@mui/material/Button";
 import { Box, IconButton } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import axios from "axios";
-import './DeletePopUp.css'
 import { useDispatch } from "react-redux";
 import { noteActions } from "../../../store/note-slice";
+import './DeletePopUp.css'
 
 export default function DeletePopUp({noteId}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -55,12 +55,14 @@ export default function DeletePopUp({noteId}) {
           horizontal: "left",
         }}
         onClick={()=>{
-            handleDeleteNote(noteId);
+            
             handleClose()
-            console.log(noteId)
+            // console.log(noteId)
         }}
       >
-        <Typography sx={{ p: 2 }}>Delete</Typography>
+        <Typography sx={{ p: 2 }} onClick={()=>{
+          handleDeleteNote(noteId);
+        }}>Delete</Typography>
       </Popover>
     </Box>
   );
