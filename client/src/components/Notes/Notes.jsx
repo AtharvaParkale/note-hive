@@ -22,7 +22,7 @@ function Notes() {
   const nDesc = useSelector((state) => state.note.noteDescription);
   const nBack = useSelector((state) => state.note.noteBackground);
   const nId = useSelector((state) => state.note.noteId);
-  const nWhite="white"
+  const nWhite = "white";
 
   // console.log(nId);
 
@@ -64,8 +64,6 @@ function Notes() {
       })
     );
   };
-
- 
 
   const setNoteData = async (title, description, background) => {
     dispatch(
@@ -171,7 +169,7 @@ function Notes() {
     >
       <Stack
         sx={{
-          width: "70%",
+          width: {xs: '80%', sm: '70%'},
           // border: "2px solid black",
           minHeight: "75vh",
           marginTop: "15vh",
@@ -188,10 +186,14 @@ function Notes() {
             justifyContent: "center",
           }}
         >
-          <Box className="input-inner-container" sx={{
-            backgroundColor:`${!open?nBack:nWhite}`
-            // border:`${nBack}`
-          }}>
+          <Box
+            className="input-inner-container"
+            sx={{
+              backgroundColor: `${!open ? nBack : nWhite}`,
+              width: {xs: '100%', sm: '60%'}
+              // border:`${nBack}`
+            }}
+          >
             {open ? (
               <Box className="take-note-container" onClick={setToggle}>
                 <p>Take a note...</p>
@@ -224,8 +226,7 @@ function Notes() {
                   />
                 </Box>
                 <Box className="features-container">
-
-                  <BackgroundPopUp/>
+                  <BackgroundPopUp />
 
                   <Button
                     variant="contained"
@@ -249,7 +250,8 @@ function Notes() {
             width: "100%",
             // border: "2px solid black",
             display: "flex",
-            alignItems: "center",
+            alignItems: "flex-start",
+            justifyContent:{xs:'center',sm:'flex-start'},
             flexWrap: "wrap",
           }}
         >
@@ -260,10 +262,13 @@ function Notes() {
               className="card-container"
               onClick={() => {
                 handleGetSingleNote(note._id);
-                
               }}
               sx={{
-                backgroundColor:`${note.backGround}`
+                backgroundColor: `${note.backGround}`,
+                width:{xs:"80%",sm:'13vw'},
+                marginRight:{xs:'0',sm:'2vw'},
+                marginBottom:{xs:'3.7vh',sm:'3.7vh'},
+
               }}
             >
               <Box
@@ -272,7 +277,7 @@ function Notes() {
                   // border: "2px solid black",
                   width: "100%",
                 }}
-                onClick={()=>{
+                onClick={() => {
                   setPopUp();
                 }}
               >
@@ -293,29 +298,43 @@ function Notes() {
                   justifyContent: "flex-end",
                 }}
               >
-                <DeletePopUp noteId={note._id}/>
+                <DeletePopUp noteId={note._id} />
               </Box>
             </Box>
           ))}
         </Box>
       </Stack>
       <Popup trigger={popUp}>
-        <Box className="popup-title-container">
+        <Box
+          className="popup-title-container"
+          
+        >
           <input
             type="text"
             value={nTitle}
             onChange={(e) => {
               setNoteData(e.target.value, nDesc, nBack);
             }}
+
+            style={{
+              backgroundColor:`${nBack}`
+            }}
           />
         </Box>
         <Box className="popup-desc-container">
-          <input
+          <textarea
             type="text"
             value={nDesc}
             onChange={(e) => {
               setNoteData(nTitle, e.target.value, nBack);
             }}
+
+            style={{
+              backgroundColor:`${nBack}`,
+              width:'100%',
+              minHeight:'100%'
+            }}
+
           />
         </Box>
         <Box className="close-button-container">

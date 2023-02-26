@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { noteActions } from "../../../store/note-slice";
 import ColorLensIcon from "@mui/icons-material/ColorLens";
 import "./BackgroundPopUp.css";
+import DoNotDisturbIcon from "@mui/icons-material/DoNotDisturb";
 
 function BackgroundPopUp() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -60,7 +61,6 @@ function BackgroundPopUp() {
             }}
             title="#f28b82"
             onClick={(e) => {
-              //   console.log(e.target);
               handleBgcolor(e.target.title);
             }}
           ></Box>
@@ -69,133 +69,133 @@ function BackgroundPopUp() {
             sx={{
               backgroundColor: "#fbbc04",
             }}
-            title="Orange"
+            title="#fbbc04"
             value="#fbbc04"
             onClick={(e) => {
-                //   console.log(e.target);
-                handleBgcolor(e.target.title);
-              }}
+              //   console.log(e.target);
+              handleBgcolor(e.target.title);
+            }}
           ></Box>
           <Box
             className="bgcolor-circle"
             sx={{
               backgroundColor: "#fff475",
             }}
-            title="Yellow"
+            title="#fff475"
             value="#fff475"
             onClick={(e) => {
-                //   console.log(e.target);
-                handleBgcolor(e.target.title);
-              }}
+              //   console.log(e.target);
+              handleBgcolor(e.target.title);
+            }}
           ></Box>
           <Box
             className="bgcolor-circle"
             sx={{
               backgroundColor: "#ccff90",
             }}
-            title="Green"
+            title="#ccff90"
             value="#ccff90"
             onClick={(e) => {
-                //   console.log(e.target);
-                handleBgcolor(e.target.title);
-              }}
+              //   console.log(e.target);
+              handleBgcolor(e.target.title);
+            }}
           ></Box>
           <Box
             className="bgcolor-circle"
             sx={{
               backgroundColor: "#a7ffeb",
             }}
-            title="Teal"
+            title="#a7ffeb"
             value="#a7ffeb"
             onClick={(e) => {
-                //   console.log(e.target);
-                handleBgcolor(e.target.title);
-              }}
+              //   console.log(e.target);
+              handleBgcolor(e.target.title);
+            }}
           ></Box>
           <Box
             className="bgcolor-circle"
             sx={{
               backgroundColor: "#cbf0f8",
             }}
-            title="Blue"
+            title="#cbf0f8"
             value="#cbf0f8"
             onClick={(e) => {
-                //   console.log(e.target);
-                handleBgcolor(e.target.title);
-              }}
+              //   console.log(e.target);
+              handleBgcolor(e.target.title);
+            }}
           ></Box>
           <Box
             className="bgcolor-circle"
             sx={{
               backgroundColor: "#aecbfa",
             }}
-            title="Dark Blue"
+            title="#aecbfa"
             value="#aecbfa"
             onClick={(e) => {
-                //   console.log(e.target);
-                handleBgcolor(e.target.title);
-              }}
+              //   console.log(e.target);
+              handleBgcolor(e.target.title);
+            }}
           ></Box>
           <Box
             className="bgcolor-circle"
             sx={{
               backgroundColor: "#d7aefb",
             }}
-            title="Purple"
+            title="#d7aefb"
             value="#d7aefb"
             onClick={(e) => {
-                //   console.log(e.target);
-                handleBgcolor(e.target.title);
-              }}
+              //   console.log(e.target);
+              handleBgcolor(e.target.title);
+            }}
           ></Box>
           <Box
             className="bgcolor-circle"
             sx={{
               backgroundColor: "#fdcfe8",
             }}
-            title="Pink"
+            title="#fdcfe8"
             value="#fdcfe8"
             onClick={(e) => {
-                //   console.log(e.target);
-                handleBgcolor(e.target.title);
-              }}
+              //   console.log(e.target);
+              handleBgcolor(e.target.title);
+            }}
           ></Box>
           <Box
             className="bgcolor-circle"
             sx={{
               backgroundColor: "#e6c9a8",
             }}
-            title="Brown"
+            title="#e6c9a8"
             value="#e6c9a8"
             onClick={(e) => {
-                //   console.log(e.target);
-                handleBgcolor(e.target.title);
-              }}
+              //   console.log(e.target);
+              handleBgcolor(e.target.title);
+            }}
           ></Box>
           <Box
             className="bgcolor-circle"
             sx={{
               backgroundColor: "#e8eaed",
             }}
-            title="Grey"
+            title="#e8eaed"
             value="#e8eaed"
             onClick={(e) => {
-                //   console.log(e.target);
-                handleBgcolor(e.target.title);
-              }}
+              //   console.log(e.target);
+              handleBgcolor(e.target.title);
+            }}
           ></Box>
           <Box
             className="bgcolor-circle"
             sx={{
-              backgroundColor: "#f28b82",
+              backgroundColor: "#fff",
             }}
-            title="white"
-            defaultValue="#f28b82"
+            title="#fff"
             onClick={(e) => {
-                //   console.log(e.target);
-                handleBgcolor(e.target.title);
-              }}
-          ></Box>
+              handleBgcolor(e.target.title);
+            }}
+          >
+            <DoNotDisturbIcon />
+          </Box>
         </Box>
       </Popover>
     </Box>
