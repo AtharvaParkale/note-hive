@@ -14,7 +14,8 @@ function App() {
 
   const fetchNotes = async () => {
     try {
-      const { data } = await axios.get("http://localhost:3001/notes/");
+      // const { data } = await axios.get("http://localhost:3001/notes/");
+      const { data } = await axios.get("https://note-hive.onrender.com/notes/");
 
       // setNotes(data);
 

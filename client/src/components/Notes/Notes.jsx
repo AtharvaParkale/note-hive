@@ -86,7 +86,8 @@ function Notes() {
         backGround: nBack,
       };
 
-      const { data } = await axios.put("http://localhost:3001/notes/", note);
+      // const { data } = await axios.put("http://localhost:3001/notes/", note);
+      const { data } = await axios.put("https://note-hive.onrender.com/notes/", note);
 
       dispatch(
         noteActions.addNote({
@@ -108,7 +109,8 @@ function Notes() {
 
   const handleGetSingleNote = async (id) => {
     try {
-      const { data } = await axios.get(`http://localhost:3001/notes/${id}`);
+      // const { data } = await axios.get(`http://localhost:3001/notes/${id}`);
+      const { data } = await axios.get(`https://note-hive.onrender.com/notes/${id}`);
       // console.log(data);
       // setNotes(data);
 
@@ -133,7 +135,8 @@ function Notes() {
   const handleUpdateNote = async (id) => {
     try {
       // console.log(id);
-      const { data } = await axios.patch(`http://localhost:3001/notes/${id}`, {
+      // const { data } = await axios.patch(`http://localhost:3001/notes/${id}`, {
+      const { data } = await axios.patch(`https://note-hive.onrender.com/notes/${id}`, {
         title: nTitle,
         description: nDesc,
         backGround: nBack,

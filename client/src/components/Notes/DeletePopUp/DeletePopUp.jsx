@@ -15,7 +15,8 @@ export default function DeletePopUp({noteId}) {
 
   const handleDeleteNote = async (id) => {
     try {
-      const { data } = await axios.delete(`http://localhost:3001/notes/${id}`);
+      // const { data } = await axios.delete(`http://localhost:3001/notes/${id}`);
+      const { data } = await axios.delete(`https://note-hive.onrender.com/notes/${id}`);
       dispatch(
         noteActions.replaceData({
           notesList: data,
