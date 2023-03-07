@@ -87,7 +87,10 @@ function Notes() {
       };
 
       // const { data } = await axios.put("http://localhost:3001/notes/", note);
-      const { data } = await axios.put("https://note-hive.onrender.com/notes/", note);
+      const { data } = await axios.put(
+        "https://note-hive.onrender.com/notes/",
+        note
+      );
 
       dispatch(
         noteActions.addNote({
@@ -110,7 +113,9 @@ function Notes() {
   const handleGetSingleNote = async (id) => {
     try {
       // const { data } = await axios.get(`http://localhost:3001/notes/${id}`);
-      const { data } = await axios.get(`https://note-hive.onrender.com/notes/${id}`);
+      const { data } = await axios.get(
+        `https://note-hive.onrender.com/notes/${id}`
+      );
       // console.log(data);
       // setNotes(data);
 
@@ -136,11 +141,14 @@ function Notes() {
     try {
       // console.log(id);
       // const { data } = await axios.patch(`http://localhost:3001/notes/${id}`, {
-      const { data } = await axios.patch(`https://note-hive.onrender.com/notes/${id}`, {
-        title: nTitle,
-        description: nDesc,
-        backGround: nBack,
-      });
+      const { data } = await axios.patch(
+        `https://note-hive.onrender.com/notes/${id}`,
+        {
+          title: nTitle,
+          description: nDesc,
+          backGround: nBack,
+        }
+      );
       // console.log(data);
 
       dispatch(
@@ -167,15 +175,24 @@ function Notes() {
         width: "100%",
         minHeight: "100vh",
         // border: "2px solid black",
-        alignItems: "center",
+        alignItems: { xs: "center", sm: "flex-end" },
+      }}
+      onClick={() => {
+        console.log("clicked");
+        dispatch(
+          toggleActions.openBox({
+            isOpen: true,
+          })
+        );
       }}
     >
       <Stack
         sx={{
-          width: {xs: '80%', sm: '70%'},
+          width: { xs: "80%", sm: "70%" },
           // border: "2px solid black",
           minHeight: "75vh",
           marginTop: "15vh",
+          marginRight: { xs: "0", sm: "5vw" },
         }}
       >
         <Box
@@ -193,8 +210,11 @@ function Notes() {
             className="input-inner-container"
             sx={{
               backgroundColor: `${!open ? nBack : nWhite}`,
-              width: {xs: '100%', sm: '60%'}
+              width: { xs: "100%", sm: "60%" },
               // border:`${nBack}`
+            }}
+            onClick={(event) => {
+              event.stopPropagation();
             }}
           >
             {open ? (
@@ -254,7 +274,7 @@ function Notes() {
             // border: "2px solid black",
             display: "flex",
             alignItems: "flex-start",
-            justifyContent:{xs:'center',sm:'flex-start'},
+            justifyContent: { xs: "center", sm: "flex-start" },
             flexWrap: "wrap",
           }}
         >
@@ -265,13 +285,13 @@ function Notes() {
               className="card-container"
               onClick={() => {
                 handleGetSingleNote(note._id);
+                setPopUp();
               }}
               sx={{
                 backgroundColor: `${note.backGround}`,
-                width:{xs:"80%",sm:'13vw'},
-                marginRight:{xs:'0',sm:'2vw'},
-                marginBottom:{xs:'3.7vh',sm:'3.7vh'},
-
+                width: { xs: "80%", sm: "13vw" },
+                marginRight: { xs: "0", sm: "2vw" },
+                marginBottom: { xs: "3.7vh", sm: "3.7vh" },
               }}
             >
               <Box
@@ -280,16 +300,13 @@ function Notes() {
                   // border: "2px solid black",
                   width: "100%",
                 }}
-                onClick={() => {
-                  setPopUp();
-                }}
               >
                 <span>{note.title}</span>
                 <br />
 
-                <div className="description-container">
+                {/* <div className="description-card-container"> */}
                   <p>{note.description}</p>
-                </div>
+                {/* </div> */}
               </Box>
               <Box
                 className="delete-card-container"
@@ -300,6 +317,9 @@ function Notes() {
                   alignItems: "center",
                   justifyContent: "flex-end",
                 }}
+                onClick={(event) => {
+                  event.stopPropagation();
+                }}
               >
                 <DeletePopUp noteId={note._id} />
               </Box>
@@ -308,19 +328,15 @@ function Notes() {
         </Box>
       </Stack>
       <Popup trigger={popUp}>
-        <Box
-          className="popup-title-container"
-          
-        >
+        <Box className="popup-title-container">
           <input
             type="text"
             value={nTitle}
             onChange={(e) => {
               setNoteData(e.target.value, nDesc, nBack);
             }}
-
             style={{
-              backgroundColor:`${nBack}`
+              backgroundColor: `${nBack}`,
             }}
           />
         </Box>
@@ -331,16 +347,15 @@ function Notes() {
             onChange={(e) => {
               setNoteData(nTitle, e.target.value, nBack);
             }}
-
             style={{
-              backgroundColor:`${nBack}`,
-              width:'100%',
-              minHeight:'100%'
+              backgroundColor: `${nBack}`,
+              width: "100%",
+              minHeight: "100%",
             }}
-
           />
         </Box>
         <Box className="close-button-container">
+          <BackgroundPopUp />
           <Button
             variant="contained"
             size="small"

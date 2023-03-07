@@ -53,6 +53,13 @@
     justify-content:space-between;
     margin-bottom: 1vh;
 }
+.delete-card-container {
+    /* border: 2px solid black; */
+    width: fit-content !important;
+    display: flex !important;
+    align-items: flex-start;
+    justify-content: center;
+}
 .delete-card-container svg{
     margin: 0 !important;
 }
@@ -65,7 +72,7 @@
     font-family: "Montserrat", sans-serif !important;
 }
 .card-container {
-  min-height: 15vh;
+  min-height: 17vh;
   border: 1px solid #b9b9b9;
   border-radius: 8px;
   cursor: pointer;
@@ -73,29 +80,56 @@
   padding: 12px;
   font-size: 0.93em;
   display: flex;
+  align-items: flex-start;
   flex-direction: column;
-  align-items: center;
   justify-content: space-between;
+  top: 0;
+  /* border: 2px solid black !important; */
 
 }
+
+
+
 .card-container span{
     font-weight: 500;
     font-size: 1em;
     color: #202124 !important;
+    /* border: 2px solid black !important; */
+    
+}
+
+.text-holder span{
+    font-weight: 500;
+    font-size: 1em;
+    color: #202124 !important;
+    /* border: 2px solid black !important; */
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 .card-container p {
     font-size: 0.9em;
-    line-height: 1.4;
+    line-height: 1.2;
     width: 100%;
-    /* border: 2px solid black; */
     word-wrap:break-word;
     color:#202124 !important;
+    /* border: 2px solid black !important; */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-top: 0 !important;
 }
-.description-container{
+.description-card-container{
     width: 100%;
+    /* border: 2px solid black !important; */
 }
 .card-container:hover{
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.395);
+}
+.text-holder{
+    height: 80%!important;
 }
 
 .desc-textarea{
@@ -172,11 +206,11 @@
 
 .close-button-container{
     /* border: 2px solid black; */
-    width: 95%;
+    width: 90%;
     height: 8vh;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
 
 .css-3bmhjh-MuiPaper-root-MuiPopover-paper{
@@ -184,3 +218,13 @@
     font-family: "Montserrat", sans-serif !important;
     font-weight: 500 !important;
 }
+.text-card-holder{
+    /* border: 2px solid black; */
+}
+.description-card-container{
+    /* border: 2px solid black; */
+    width: 100%;
+    overflow-y: scroll;
+}
+
+
