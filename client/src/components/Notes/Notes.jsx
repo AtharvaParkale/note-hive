@@ -10,29 +10,23 @@ import { noteActions } from "../../store/note-slice";
 import Popup from "./notePopup";
 import DeletePopUp from "./DeletePopUp/DeletePopUp";
 import BackgroundPopUp from "./BackgroundPopUp/BackgroundPopUp";
+import ReactLoading from "react-loading";
 
 function Notes() {
   const dispatch = useDispatch();
   const open = useSelector((state) => state.toggle.isOpen);
   const popUp = useSelector((state) => state.toggle.isPopUp);
-
-  // console.log(popUp);
-
   const nTitle = useSelector((state) => state.note.noteTitle);
   const nDesc = useSelector((state) => state.note.noteDescription);
   const nBack = useSelector((state) => state.note.noteBackground);
   const nId = useSelector((state) => state.note.noteId);
+  const isLoading = useSelector((state) => state.toggle.isLoading);
+  const isPopUpLoading = useSelector((state) => state.toggle.isPopUpLoading);
   const nWhite = "white";
-
-  // console.log(nId);
-
-  // console.log(nTitle);
-  // console.log(nDesc);
-  // console.log(nBack);
 
   const data = useSelector((state) => state.note.notesList);
 
-  // console.log(data);
+  // console.log(data);zz
 
   const setToggle = () => {
     dispatch(
@@ -63,6 +57,12 @@ function Notes() {
         isPopUp: !popUp,
       })
     );
+
+    dispatch(
+      toggleActions.setIsPopUpLoading({
+        isPopUpLoading: true,
+      })
+    );
   };
 
   const setNoteData = async (title, description, background) => {
@@ -76,9 +76,6 @@ function Notes() {
   };
 
   const handleAddNote = async () => {
-    // console.log(nTitle);
-    // console.log(nDesc);
-    // console.log(nBack);
     try {
       const note = {
         title: nTitle,
@@ -106,7 +103,7 @@ function Notes() {
         })
       );
     } catch (err) {
-      console.log(err.response.data);
+      console.log(err);
     }
   };
 
@@ -119,23 +116,13 @@ function Notes() {
       // console.log(data);
       // setNotes(data);
 
-      dispatch(
-        noteActions.addNote({
-          noteTitle: data.title,
-          noteDescription: data.description,
-          noteBackground: data.backGround,
-        })
-      );
-
-      dispatch(
-        noteActions.addId({
-          noteId: id,
-        })
-      );
+      return data;
     } catch (err) {
-      console.log(err.response.data);
+      console.log(err);
     }
   };
+
+  // console.log(isPopUpLoading);
 
   const handleUpdateNote = async (id) => {
     try {
@@ -178,7 +165,7 @@ function Notes() {
         alignItems: { xs: "center", sm: "flex-end" },
       }}
       onClick={() => {
-        console.log("clicked");
+        // console.log("clicked");
         dispatch(
           toggleActions.openBox({
             isOpen: true,
@@ -276,9 +263,93 @@ function Notes() {
             alignItems: "flex-start",
             justifyContent: { xs: "center", sm: "flex-start" },
             flexWrap: "wrap",
+            // minHeight: "10vh !important",
           }}
         >
-          {data.map((note) => (
+          {isLoading ? (
+            <Box className="loading-container">
+              <ReactLoading type={"spin"} color="#1976d2" />
+              <p>Fetching notes ...</p>
+            </Box>
+          ) : (
+            <>
+              {data.map((note) => (
+                // <div key={note._id}>{note.description}</div>
+                <Box
+                  key={note._id}
+                  className="card-container"
+                  onClick={() => {
+                    // handleGetSingleNote(note._id);
+
+                    handleGetSingleNote(note._id).then((data) => {
+                      // console.log(data.title + " fetched !");
+                      dispatch(
+                        noteActions.addNote({
+                          noteTitle: data.title,
+                          noteDescription: data.description,
+                          noteBackground: data.backGround,
+                        })
+                      );
+
+                      dispatch(
+                        noteActions.addId({
+                          noteId: note._id,
+                        })
+                      );
+
+                      dispatch(
+                        toggleActions.setIsPopUpLoading({
+                          isPopUpLoading: false,
+                        })
+                      );
+                      // console.log(data);
+                    });
+                    setPopUp();
+                  }}
+                  sx={{
+                    backgroundColor: `${note.backGround}`,
+                    width: { xs: "80%", sm: "13vw" },
+                    marginRight: { xs: "0", sm: "2vw" },
+                    marginBottom: { xs: "3.7vh", sm: "3.7vh" },
+                  }}
+                >
+                  <Box
+                    className="text-holder"
+                    sx={{
+                      // border: "2px solid black",
+                      width: "100%",
+                    }}
+                  >
+                    <span>{note.title}</span>
+                    <br />
+
+                    <p>{note.description}</p>
+                  </Box>
+                  <Box
+                    className="delete-card-container"
+                    sx={{
+                      // border: "2px solid black",
+                      width: "100%",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "flex-end",
+                    }}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                    }}
+                  >
+                    <DeletePopUp noteId={note._id} />
+                  </Box>
+                </Box>
+              ))}
+            </>
+          )}
+
+          {/* // <Box className="loading-container">
+          //   <ReactLoading type={"spin"} color="#1976d2" />
+          //   <p>Fetching notes ...</p>
+          // </Box> */}
+          {/* {data.map((note) => (
             // <div key={note._id}>{note.description}</div>
             <Box
               key={note._id}
@@ -304,9 +375,7 @@ function Notes() {
                 <span>{note.title}</span>
                 <br />
 
-                {/* <div className="description-card-container"> */}
                   <p>{note.description}</p>
-                {/* </div> */}
               </Box>
               <Box
                 className="delete-card-container"
@@ -324,7 +393,7 @@ function Notes() {
                 <DeletePopUp noteId={note._id} />
               </Box>
             </Box>
-          ))}
+          ))} */}
         </Box>
       </Stack>
       <Popup trigger={popUp}>

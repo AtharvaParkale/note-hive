@@ -15,7 +15,7 @@ function BackgroundPopUp() {
   const dispatch = useDispatch();
 
   const handleBgcolor = (clr) => {
-    console.log(clr);
+    // console.log(clr);
 
     dispatch(
       noteActions.setBackgroundColor({
@@ -188,13 +188,17 @@ function BackgroundPopUp() {
             className="bgcolor-circle"
             sx={{
               backgroundColor: "#fff",
+              border: "1px solid #b8b6b6",
+              width: "26px",
+              height: "26px",
             }}
             title="#fff"
+            value="#fff"
             onClick={(e) => {
               handleBgcolor(e.target.title);
             }}
           >
-            <DoNotDisturbIcon />
+            {/* <DoNotDisturbIcon /> */}
           </Box>
         </Box>
       </Popover>

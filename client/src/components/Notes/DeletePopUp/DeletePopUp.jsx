@@ -22,7 +22,7 @@ export default function DeletePopUp({noteId}) {
           notesList: data,
         })
       );
-      console.log("Note deleted successfully !");
+      // console.log("Note deleted successfully !");
     } catch (err) {
       console.log("Error in deleting the note!");
     }

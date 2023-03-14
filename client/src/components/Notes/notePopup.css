@@ -26,3 +26,19 @@
 .close-btn{
     /* border: 2px solid black; */
 }
+.popup-loading-container{
+  /* border: 2px solid black; */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border: 2px solid red; */
+  flex-direction: column;
+  margin-top: 13vh;
+}
+.popup-loading-container p{
+  font-size: 0.9em;
+  font-weight: 500;
+}
+
+

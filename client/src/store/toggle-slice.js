@@ -4,7 +4,9 @@ const toggleSlice = createSlice({
   name: "toggle",
   initialState: {
     isOpen: true,
-    isPopUp:false
+    isPopUp:false,
+    isLoading:true,
+    isPopUpLoading:true
   },
   reducers: {
     openBox(state, action) {
@@ -13,6 +15,12 @@ const toggleSlice = createSlice({
 
     isPopUp(state, action) {
       state.isPopUp = action.payload.isPopUp;
+    },
+    setIsLoading(state, action) {
+      state.isLoading = action.payload.isLoading;
+    },
+    setIsPopUpLoading(state, action) {
+      state.isPopUpLoading = action.payload.isPopUpLoading;
     },
   },
 });
